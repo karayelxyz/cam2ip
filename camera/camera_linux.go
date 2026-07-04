@@ -95,6 +95,10 @@ func New(opts Options) (c *Camera, err error) {
 	c.config.Width = int(opts.Width)
 	c.config.Height = int(opts.Height)
 
+	if fps, ok := maxFrameRate(configs, format, c.config.Width, c.config.Height); ok {
+		c.config.FPS = fps
+	}
+
 	err = c.camera.SetConfig(c.config)
 	if err != nil {
 		err = fmt.Errorf("camera: format %d: can not set config: %w", c.config.Format, err)
@@ -123,6 +127,25 @@ func New(opts Options) (c *Camera, err error) {
 	}
 
 	return
+}
+
+// maxFrameRate returns the highest frame rate the device offers for the given format and resolution.
+func maxFrameRate(configs []v4l.DeviceConfig, format uint32, width, height int) (v4l.Frac, bool) {
+	var best v4l.Frac
+	found := false
+
+	for _, cfg := range configs {
+		if cfg.Format != format || cfg.Width != width || cfg.Height != height {
+			continue
+		}
+
+		if !found || cfg.FPS.Cmp(best) > 0 {
+			best = cfg.FPS
+			found = true
+		}
+	}
+
+	return best, found
 }
 
 // selectFormat returns the first supported format the device offers.
