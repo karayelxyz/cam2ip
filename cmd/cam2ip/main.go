@@ -103,7 +103,11 @@ func main() {
 		}
 
 		for _, d := range devices {
-			fmt.Printf("%d: %s\n", d.Index, d.Name)
+			if d.Path != "" {
+				fmt.Printf("%d: %s (%s)\n", d.Index, d.Name, d.Path)
+			} else {
+				fmt.Printf("%d: %s\n", d.Index, d.Name)
+			}
 		}
 
 		os.Exit(0)

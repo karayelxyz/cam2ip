@@ -20,6 +20,8 @@ type Options struct {
 type DeviceInfo struct {
 	Index int
 	Name  string
+	// Path is the OS device path (e.g. /dev/video0); Linux only, empty elsewhere.
+	Path string
 }
 
 // Info describes the negotiated capture format.

@@ -261,7 +261,7 @@ func Devices() ([]DeviceInfo, error) {
 			name = d.Path
 		}
 
-		devices = append(devices, DeviceInfo{Index: i, Name: name})
+		devices = append(devices, DeviceInfo{Index: i, Name: name, Path: d.Path})
 	}
 
 	return devices, nil
