@@ -80,3 +80,9 @@ Usage: cam2ip [<flags>]
   * `/html`: HTML handler, frames are pushed to canvas over websocket
   * `/jpeg`: Static JPEG handler
   * `/mjpeg`: Motion JPEG, supported natively in major web browsers
+
+### camview
+
+`cmd/camview` is a small native window that shows the local camera live, using [iv](https://github.com/gen2brain/iv) for display.
+
+    go install github.com/gen2brain/cam2ip/cmd/camview@latest
