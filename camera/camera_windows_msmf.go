@@ -373,6 +373,7 @@ func (c *Camera) Read() (img image.Image, err error) {
 
 	nv12ToYCbCr420(c.frame, c.stride, c.width, c.height, c.ycbcr)
 	img = c.ycbcr
+	c.haveFrame = false
 
 	c.mu.Unlock()
 

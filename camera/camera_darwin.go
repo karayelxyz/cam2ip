@@ -170,6 +170,7 @@ func (c *Camera) Read() (img image.Image, err error) {
 	}
 
 	bgraToRgba(c.frame, c.rgba)
+	c.haveFrame = false
 
 	c.mu.Unlock()
 
